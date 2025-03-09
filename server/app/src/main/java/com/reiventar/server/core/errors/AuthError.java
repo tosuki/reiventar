@@ -23,9 +23,9 @@ public abstract class AuthError extends CoreError {
         }
     }
 
-    public static class EmailOccupied extends AuthError {
-        public EmailOccupied(String email) {
-            super("The email " + email + " is occupied");
+    public static class NameOccupied extends AuthError {
+        public NameOccupied(String name) {
+            super("The name " + name + " is occupied");
         }
     }
 }

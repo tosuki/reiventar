@@ -2,6 +2,7 @@ package com.reiventar.server.core.usecase;
 
 import com.reiventar.server.core.errors.AuthError;
 import com.reiventar.server.core.errors.CoreError;
+import com.reiventar.server.core.model.Permissions;
 import com.reiventar.server.core.model.User;
 import com.reiventar.server.core.ports.PassportEncoder;
 import com.reiventar.server.core.ports.UserRepository;
@@ -16,6 +17,29 @@ public class AuthUsecase {
         this.userRepository = userRepository;
         this.passportEncoder = passportEncoder;
         this.encryptionProvider = encryptionProvider;
+    }
+
+    public String register(String name, String password, Permissions permission) {
+        try {
+            User nameOccupied = this.userRepository.get(name);
+
+            if (nameOccupied != null) {
+                throw new AuthError.NameOccupied(name);
+            }
+
+            String encryptedPassword = this.encryptionProvider.encrypt(password);
+            User user = this.userRepository.create(name, encryptedPassword, permission);
+
+            return this.passportEncoder.encode(
+                user.id,
+                user.name,
+                user.permission,
+                user.createdAt,
+                user.updatedAt
+            );
+        } catch (CoreError error) {
+            throw error;
+        }
     }
 
     public String authenticate(String name, String password) {
