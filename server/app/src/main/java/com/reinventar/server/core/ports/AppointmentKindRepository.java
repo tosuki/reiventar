@@ -1,6 +1,6 @@
-package com.reiventar.server.core.ports;
+package com.reinventar.server.core.ports;
 
-import com.reiventar.server.core.model.AppointmentKind;
+import com.reinventar.server.core.model.AppointmentKind;
 
 public interface AppointmentKindRepository {
     AppointmentKind create(long createdBy, String name);

@@ -1,12 +1,12 @@
-package com.reiventar.server.core.usecase;
+package com.reinventar.server.core.usecase;
 
-import com.reiventar.server.core.errors.AuthError;
-import com.reiventar.server.core.errors.CoreError;
-import com.reiventar.server.core.model.Permissions;
-import com.reiventar.server.core.model.User;
-import com.reiventar.server.core.ports.PassportEncoder;
-import com.reiventar.server.core.ports.UserRepository;
-import com.reiventar.server.core.ports.EncryptionProvider;
+import com.reinventar.server.core.errors.AuthError;
+import com.reinventar.server.core.errors.CoreError;
+import com.reinventar.server.core.model.Permissions;
+import com.reinventar.server.core.model.User;
+import com.reinventar.server.core.ports.EncryptionProvider;
+import com.reinventar.server.core.ports.PassportEncoder;
+import com.reinventar.server.core.ports.UserRepository;
 
 public class AuthUsecase {
     private final UserRepository userRepository;

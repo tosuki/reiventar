@@ -1,4 +1,4 @@
-package com.reiventar.server.core.ports;
+package com.reinventar.server.core.ports;
 
 public interface EncryptionProvider {
     String encrypt(String value);

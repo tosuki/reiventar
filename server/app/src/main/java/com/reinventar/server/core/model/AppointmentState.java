@@ -1,4 +1,4 @@
-package com.reiventar.server.core.model;
+package com.reinventar.server.core.model;
 
 public enum AppointmentState {
     CONFIRMED(1), 

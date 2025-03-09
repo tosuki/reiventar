@@ -1,4 +1,4 @@
-package com.reiventar.server.core.errors;
+package com.reinventar.server.core.errors;
 
 public abstract class AuthError extends CoreError {
     public AuthError(String message) {

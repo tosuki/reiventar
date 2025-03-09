@@ -1,4 +1,4 @@
-package com.reiventar.server;
+package com.reinventar.server;
 
 public class App {
     public static void main(String[] args) {

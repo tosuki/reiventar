@@ -1,7 +1,7 @@
-package com.reiventar.server.core.ports;
+package com.reinventar.server.core.ports;
 
-import com.reiventar.server.core.model.Permissions;
-import com.reiventar.server.core.model.Session;
+import com.reinventar.server.core.model.Permissions;
+import com.reinventar.server.core.model.Session;
 
 public interface PassportEncoder {
     String encode(

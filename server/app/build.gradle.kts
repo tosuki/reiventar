@@ -18,6 +18,7 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
+    implementation("com.zaxxer:HikariCP:5.1.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -29,5 +30,5 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "com.reiventar.server.App"
+    mainClass = "com.reinventar.server.App"
 }

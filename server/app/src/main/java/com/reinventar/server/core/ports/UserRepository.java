@@ -1,7 +1,7 @@
-package com.reiventar.server.core.ports;
+package com.reinventar.server.core.ports;
 
-import com.reiventar.server.core.model.Permissions;
-import com.reiventar.server.core.model.User;
+import com.reinventar.server.core.model.Permissions;
+import com.reinventar.server.core.model.User;
 
 public interface UserRepository {
     User create(String name, String password, Permissions permissions);
