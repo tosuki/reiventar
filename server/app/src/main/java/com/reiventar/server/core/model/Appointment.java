@@ -5,6 +5,7 @@ public class Appointment {
     public final long createdBy;
     public final long date;
     public final long kind;
+    public final AppointmentState state;
     public final long professional;
     public final long client;
     public final long createdAt;
@@ -14,6 +15,7 @@ public class Appointment {
         long createdBy,
         long date,
         long kind,
+        AppointmentState state,
         long client,
         long professional,
         long createdAt
@@ -22,6 +24,7 @@ public class Appointment {
         this.createdBy = createdAt;
         this.date = date;
         this.kind = kind;
+        this.state = state;
         this.professional = professional;
         this.client = client;
         this.createdAt = createdAt;
