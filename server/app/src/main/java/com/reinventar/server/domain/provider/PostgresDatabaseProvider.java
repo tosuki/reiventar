@@ -96,4 +96,8 @@ public class PostgresDatabaseProvider {
             throw new CriticalError.DatabaseSQLError(exception);
         } 
     }
+
+    public void close() {
+        this.database.close();
+    }
 }
