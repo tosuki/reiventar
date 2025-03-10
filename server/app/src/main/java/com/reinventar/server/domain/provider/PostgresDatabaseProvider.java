@@ -1,12 +1,16 @@
 package com.reinventar.server.domain.provider;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.postgresql.ds.PGSimpleDataSource;
 
+import com.reinventar.server.core.errors.CriticalError;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 public class PostgresDatabaseProvider {
-    public HikariDataSource database = null;
+    private HikariDataSource database = null;
 
     private final String hostname;
     private final int port;
@@ -79,5 +83,17 @@ public class PostgresDatabaseProvider {
 
     public void connect() {
         this.connect(hostname, port, username, password, databaseName);
+    }
+
+    public Connection getConnection() {
+        if (this.database == null) {
+            throw new CriticalError.MissingDataSource();
+        }
+
+        try {
+            return this.database.getConnection();
+        } catch (SQLException exception) {
+            throw new CriticalError.DatabaseSQLError(exception);
+        } 
     }
 }

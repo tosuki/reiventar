@@ -1,15 +1,23 @@
 package com.reinventar.server.domain.repository;
 
+import java.sql.Connection;
+
+import com.reinventar.server.core.errors.CoreError;
 import com.reinventar.server.core.model.Permissions;
 import com.reinventar.server.core.model.User;
 import com.reinventar.server.core.ports.UserRepository;
 import com.reinventar.server.domain.provider.PostgresDatabaseProvider;
 
 public class UserPostgresRepositoryImpl implements UserRepository {
-    private final PostgresDatabaseProvider database;
+    private final PostgresDatabaseProvider databaseProvider;
 
-    public UserPostgresRepositoryImpl(PostgresDatabaseProvider database) {
-        this.database = database;
+    public UserPostgresRepositoryImpl(PostgresDatabaseProvider databaseProvider) {
+        this.databaseProvider = databaseProvider;
+    }
+
+    public void initialize() {
+        Connection connection = this.databaseProvider.getConnection();
+        //create sql table
     }
 
     @Override
@@ -19,7 +27,14 @@ public class UserPostgresRepositoryImpl implements UserRepository {
 
     @Override
     public User get(long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        try {
+            Connection connection = this.databaseProvider.getConnection();
+
+
+            return null;
+        } catch (CoreError error) {
+            throw error;
+        }  
     }
 
     @Override
