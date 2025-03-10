@@ -11,6 +11,16 @@ public enum Permissions {
         this.permissionLevel = permissionLevel;
     }
 
+    public static Permissions fromInt(int value) {
+        for (Permissions p : values()) {
+            if (p.getPermissionLevel() == value) {
+                return p;
+            }
+        }
+        
+        throw new IllegalArgumentException();
+    }
+
     public int getPermissionLevel() {
         return permissionLevel;
     }

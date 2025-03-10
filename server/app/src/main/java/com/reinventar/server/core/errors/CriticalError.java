@@ -7,6 +7,12 @@ public abstract class CriticalError extends CoreError {
         super("Critical", message);
     }
 
+    public static class UnhandledError extends CriticalError {
+        public UnhandledError(String message) {
+            super(message);
+        }
+    }
+
     public static class DatabaseSQLError extends CriticalError {
         public DatabaseSQLError(SQLException exception) {
             super(exception.getMessage());
