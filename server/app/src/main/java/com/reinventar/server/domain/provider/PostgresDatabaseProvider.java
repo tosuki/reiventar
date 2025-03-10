@@ -1,20 +1,83 @@
 package com.reinventar.server.domain.provider;
 
+import org.postgresql.ds.PGSimpleDataSource;
+
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 public class PostgresDatabaseProvider {
-    private final String connection;
-    private final HikariDataSource dataSource = null;
+    public HikariDataSource database = null;
 
-    public PostgresDatabaseProvider(String connection) {
-        this.connection = connection;
+    private final String hostname;
+    private final int port;
+    private final String username;
+    private final String password;
+    private final String databaseName;
+
+    public PostgresDatabaseProvider(
+        String hostname,
+        int port,
+        String username,
+        String password,
+        String databaseName
+    ) {
+        this.hostname = hostname;
+        this.port = port;
+        this.username = username;
+        this.password = password;
+        this.databaseName = databaseName;
     }
 
-    public void connect(String connection) {
-        
+    private PGSimpleDataSource createPostgresDataSource(
+        String hostname,
+        int port,
+        String username,
+        String password,
+        String databaseName
+    ) {
+        PGSimpleDataSource pgSimpleDataSource = new PGSimpleDataSource();
+
+        pgSimpleDataSource.setServerNames(new String[]{ hostname });
+        pgSimpleDataSource.setPortNumbers(new int[]{ port });
+        pgSimpleDataSource.setPassword(password);
+        pgSimpleDataSource.setUser(username);
+        pgSimpleDataSource.setDatabaseName(databaseName);
+
+        return pgSimpleDataSource;
+    }
+
+    private HikariConfig createHikariConfig(PGSimpleDataSource postgresDataSource) {
+        HikariConfig config = new HikariConfig();
+
+        config.setDataSource(postgresDataSource);
+        config.setMaximumPoolSize(2);//because we are in a development environment, change this if its in production
+        config.setMinimumIdle(2);
+        config.setIdleTimeout(30000);
+        config.setMaxLifetime(600000);
+        config.setConnectionTimeout(30000);
+
+        return config;
+    }
+
+    public void connect(
+        String hostname,
+        int port,
+        String username,
+        String password,
+        String databaseName
+    ) {
+        PGSimpleDataSource pgDataSource = this.createPostgresDataSource(
+            hostname,
+            port,
+            username,
+            password,
+            databaseName
+        );
+
+        this.database = new HikariDataSource(this.createHikariConfig(pgDataSource));
     }
 
     public void connect() {
-        this.connect(this.connection);
+        this.connect(hostname, port, username, password, databaseName);
     }
 }
