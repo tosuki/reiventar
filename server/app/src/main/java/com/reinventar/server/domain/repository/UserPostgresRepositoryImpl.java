@@ -1,12 +1,10 @@
 package com.reinventar.server.domain.repository;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.reinventar.server.core.Logger;
 import com.reinventar.server.core.errors.AuthError;
 import com.reinventar.server.core.errors.CriticalError;
 import com.reinventar.server.core.model.Permissions;
@@ -78,35 +76,76 @@ public class UserPostgresRepositoryImpl implements UserRepository {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?;");
             statement.setLong(1, id);
 
-            ResultSet result = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
-            if (!result.next()) {
+            if (!resultSet.next()) {
                 return null;
             }
 
-            long user_id = result.getLong("id");
-
-            Logger.info("%d", user_id);
-            
-            return null;
+            return new User(
+                resultSet.getLong("id"),
+                resultSet.getString("name"),
+                resultSet.getString("password"),
+                Permissions.fromInt(resultSet.getInt("permission")),
+                resultSet.getTimestamp("created_at").getTime(),
+                resultSet.getTimestamp("updated_at").getTime()
+            );
         } catch (SQLException exception) {
             throw new CriticalError.DatabaseSQLError(exception);
-        }  
+        }
     }
 
     @Override
     public User get(String name) {
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        try {
+            Connection connection = this.databaseProvider.getConnection();
+            PreparedStatement statement = connection.prepareStatement("name");
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) {
+                return null;
+            }
+
+            return new User(
+                resultSet.getLong("id"),
+                resultSet.getString("name"),
+                resultSet.getString("password"),
+                Permissions.fromInt(resultSet.getInt("permission")),
+                resultSet.getTimestamp("created_at").getTime(),
+                resultSet.getTimestamp("updated_at").getTime()
+            );
+        } catch (SQLException exception) {
+            throw new CriticalError.DatabaseSQLError(exception);
+        }
     }
 
     @Override
     public void delete(long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        try {
+            Connection connection = databaseProvider.getConnection();
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = ?;");
+
+            statement.setLong(1, id);
+
+            statement.execute();
+        } catch (SQLException exception) {
+            throw new CriticalError.DatabaseSQLError(exception);
+        }
     }
 
     @Override
     public void delete(String name) {
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        try {
+            Connection connection = databaseProvider.getConnection();
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE name = ?;");
+            
+            statement.setString(1, name);
+
+            statement.execute();
+        } catch (SQLException exception) {
+            throw new CriticalError.DatabaseSQLError(exception);
+        }
     }
     
 }

@@ -2,7 +2,6 @@ package com.reinventar.server;
 
 import com.reinventar.server.core.Logger;
 import com.reinventar.server.core.errors.CoreError;
-import com.reinventar.server.core.model.Permissions;
 import com.reinventar.server.core.model.User;
 import com.reinventar.server.domain.provider.PostgresDatabaseProvider;
 import com.reinventar.server.domain.repository.UserPostgresRepositoryImpl;
@@ -23,7 +22,7 @@ public class App {
             UserPostgresRepositoryImpl userRepository = new UserPostgresRepositoryImpl(databaseProvider);
             userRepository.initialize();
 
-            User user = userRepository.create("Carlos", "hello_world", Permissions.ADMINISTRATOR);
+            User user = userRepository.get(1);
             Logger.info("%s\n", user.permission);
 
             databaseProvider.close();
