@@ -2,6 +2,9 @@ package com.reinventar.server.core.errors;
 
 import java.sql.SQLException;
 
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+
 public abstract class CriticalError extends CoreError {
     public CriticalError(String message) {
         super("Critical", message);
@@ -15,6 +18,16 @@ public abstract class CriticalError extends CoreError {
 
     public static class DatabaseSQLError extends CriticalError {
         public DatabaseSQLError(SQLException exception) {
+            super(exception.getMessage());
+        }
+    }
+
+    public static class JWTError extends CriticalError {
+        public JWTError(JWTDecodeException exception) {
+            super(exception.getMessage());
+        }
+
+        public JWTError(JWTCreationException exception) {
             super(exception.getMessage());
         }
     }
