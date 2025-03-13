@@ -18,6 +18,7 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
     implementation("com.auth0:java-jwt:4.5.0")
     implementation("com.zaxxer:HikariCP:5.1.0")
     implementation("org.postgresql:postgresql:42.7.1")
