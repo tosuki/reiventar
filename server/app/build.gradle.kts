@@ -21,6 +21,7 @@ dependencies {
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     implementation("com.auth0:java-jwt:4.5.0")
     implementation("com.zaxxer:HikariCP:5.1.0")
+    implementation("at.favre.lib:bcrypt:0.10.2")
     implementation("org.postgresql:postgresql:42.7.1")
 }
 

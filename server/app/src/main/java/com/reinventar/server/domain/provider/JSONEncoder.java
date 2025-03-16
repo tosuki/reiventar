@@ -17,7 +17,7 @@ public class JSONEncoder {
             Session session = new Session(
                 (long) obj.get("id"),
                 (String) obj.get("name"),
-                Permissions.fromInt(1),
+                Permissions.fromInt(((Long) obj.get("permission")).intValue()),
                 (long) obj.get("created_at"),
                 (long) obj.get("updated_at"),
                 (long) obj.get("updated_at"),
