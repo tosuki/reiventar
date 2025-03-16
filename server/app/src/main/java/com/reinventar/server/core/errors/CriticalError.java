@@ -10,6 +10,12 @@ public abstract class CriticalError extends CoreError {
         super("Critical", message);
     }
 
+    public static class EncryptionError extends CriticalError {
+        public EncryptionError(IllegalArgumentException exception) {
+            super(exception.getMessage());
+        }
+    }
+
     public static class JSONParseError extends CriticalError {
         public JSONParseError(ClassCastException exception) {
             super(exception.getMessage());
