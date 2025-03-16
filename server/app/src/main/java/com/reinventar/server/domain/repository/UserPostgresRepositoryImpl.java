@@ -46,7 +46,7 @@ public class UserPostgresRepositoryImpl implements UserRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if (!resultSet.next()) {
-                throw new CriticalError.UnhandledError("Empty rows on insert query (users)");
+                throw new CriticalError.UnhandledError("Empty rows on insert query (users)", "user repository");
             }
 
             User user = new User(
@@ -64,7 +64,7 @@ public class UserPostgresRepositoryImpl implements UserRepository {
                 throw new AuthError.NameOccupied(name);
             }
 
-            throw new CriticalError.DatabaseSQLError(exception);
+            throw new CriticalError.DatabaseSQLError(exception, "user repository - create");
         }
     }
 
@@ -91,7 +91,7 @@ public class UserPostgresRepositoryImpl implements UserRepository {
                 resultSet.getTimestamp("updated_at").getTime()
             );
         } catch (SQLException exception) {
-            throw new CriticalError.DatabaseSQLError(exception);
+            throw new CriticalError.DatabaseSQLError(exception, "user repository - get(id)");
         }
     }
 
@@ -99,7 +99,9 @@ public class UserPostgresRepositoryImpl implements UserRepository {
     public User get(String name) {
         try {
             Connection connection = this.databaseProvider.getConnection();
-            PreparedStatement statement = connection.prepareStatement("name");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE name = ?;");
+
+            statement.setString(1, name);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -116,7 +118,7 @@ public class UserPostgresRepositoryImpl implements UserRepository {
                 resultSet.getTimestamp("updated_at").getTime()
             );
         } catch (SQLException exception) {
-            throw new CriticalError.DatabaseSQLError(exception);
+            throw new CriticalError.DatabaseSQLError(exception, "user repository - get(name)");
         }
     }
 
