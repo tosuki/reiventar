@@ -4,6 +4,7 @@ import com.reinventar.server.core.model.Permissions;
 import com.reinventar.server.core.model.User;
 
 public interface UserRepository {
+    void initialize();
     User create(String name, String password, Permissions permissions);
     
     User get(long id);

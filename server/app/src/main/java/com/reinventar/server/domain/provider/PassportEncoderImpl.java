@@ -8,7 +8,6 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.reinventar.server.core.Logger;
 import com.reinventar.server.core.errors.AuthError;
 import com.reinventar.server.core.errors.CriticalError;
 import com.reinventar.server.core.model.Permissions;

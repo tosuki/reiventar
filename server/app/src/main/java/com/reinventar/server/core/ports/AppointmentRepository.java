@@ -6,6 +6,7 @@ import com.reinventar.server.core.model.Appointment;
 import com.reinventar.server.core.model.AppointmentState;
 
 public interface AppointmentRepository {
+    void initialize();
     Appointment create(long createdBy, long date, long kind, AppointmentState state, long professional, long client);
     
     ArrayList<Appointment> getByProfessional(long professionalId);
