@@ -32,7 +32,7 @@ public class App {
 
             customerRepository.initialize();
             
-            Customer customer = customerRepository.get("Carloss");
+            Customer customer = customerRepository.get("Carlos");
 
             if (customer == null) {
                 Logger.error("It doesnt exist");
